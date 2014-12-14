@@ -29,6 +29,7 @@ module ActiveRecord
 
       def changed_in_place?(raw_old_value, value)
         return false if value.nil?
+        return true if raw_old_value.nil?
         subtype.changed_in_place?(raw_old_value, coder.dump(value))
       end
 
