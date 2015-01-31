@@ -7,7 +7,7 @@
 
 <div id="container">
   <p>
-    Showing <i><%= @exception.file_name %></i> where line <b>#<%= @exception.line_number %></b> raised:
+    Showing2 <i><%= @exception.file_name %></i> where line <b>#<%= @exception.line_number %></b> raised:
   </p>
   <pre><code><%= h @exception.message %></code></pre>
 
@@ -16,5 +16,11 @@
   <p><%= @exception.sub_template_message %></p>
 
   <%= render template: "rescues/_trace" %>
+
   <%= render template: "rescues/_request_and_response" %>
+
+  <% if @show_routes %>
+    <%= render template: "rescues/_routes" %>
+  <% end %>
+
 </div>

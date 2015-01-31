@@ -13,4 +13,7 @@
   <%= render template: "rescues/_source" %>
   <%= render template: "rescues/_trace" %>
   <%= render template: "rescues/_request_and_response" %>
+  <% if @show_routes %>
+    <%= render template: "rescues/_routes" %>
+  <% end %>
 </div>

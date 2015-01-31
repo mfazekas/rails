@@ -54,6 +54,7 @@ module ActionDispatch
           trace_to_show: trace_to_show,
           routes_inspector: routes_inspector(exception),
           source_extracts: wrapper.source_extracts,
+          show_routes: name_not_found_route_error?(exception),
           line_number: wrapper.line_number,
           file: wrapper.file
         )
@@ -101,8 +102,14 @@ module ActionDispatch
       @stderr_logger ||= ActiveSupport::Logger.new($stderr)
     end
 
+    def name_not_found_route_error?(exception)
+      byebug
+      (exception.is_a?(NameError) || (exception.original_exception && exception.original_exception.is_a?(NameError))) &&
+        exception.message =~ /undefined local variable or method `([^`]+_(path|url))`*/
+    end
+
     def routes_inspector(exception)
-      if @routes_app.respond_to?(:routes) && (exception.is_a?(ActionController::RoutingError) || exception.is_a?(ActionView::Template::Error))
+      if @routes_app.respond_to?(:routes) && (exception.is_a?(ActionController::RoutingError) || exception.is_a?(ActionView::Template::Error) || name_not_found_route_error?(exception))
         ActionDispatch::Routing::RoutesInspector.new(@routes_app.routes.routes)
       end
     end

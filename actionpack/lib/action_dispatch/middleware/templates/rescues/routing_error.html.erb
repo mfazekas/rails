@@ -16,17 +16,7 @@
 
   <%= render template: "rescues/_trace" %>
 
-  <% if @routes_inspector %>
-    <h2>
-      Routes
-    </h2>
-
-    <p>
-      Routes match in priority from top to bottom
-    </p>
-
-    <%= @routes_inspector.format(ActionDispatch::Routing::HtmlTableFormatter.new(self)) %>
-  <% end %>
+  <%= render template: "rescues/_routes" %>
 
   <%= render template: "rescues/_request_and_response" %>
 </div>
