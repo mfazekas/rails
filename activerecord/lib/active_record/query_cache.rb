@@ -42,11 +42,6 @@ module ActiveRecord
 
     def self.install_executor_hooks(executor = ActiveSupport::Executor)
       executor.register_hook(self)
-
-      executor.to_complete do
-        is_test = self.class.instance_variable_get("@rack_test")
-        ActiveRecord::Base.clear_active_connections! unless is_test
-      end
     end
   end
 end
