@@ -10,7 +10,7 @@ module ActiveJob
     #   Rails.application.config.active_job.queue_adapter = :inline
     class InlineAdapter
       def enqueue(job) #:nodoc:
-        Base.execute(job.serialize)
+        Base.execute_inline(job.serialize)
       end
 
       def enqueue_at(*) #:nodoc:
